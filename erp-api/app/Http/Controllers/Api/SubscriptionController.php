@@ -68,56 +68,6 @@ class SubscriptionController extends Controller
         ]);
     }
 
-    public function update(Request $request, int $subscription): JsonResponse
-    {
-        $subscription = Subscription::query()->find($subscription);
-
-        if (!$subscription) {
-            return response()->json([
-                "success" => false,
-                "message" => "Subscription not found",
-                "errors" => [],
-            ], 404);
-        }
-
-        $data = $request->validate([
-            "customer_id" => ["sometimes", "exists:customers,id"],
-            "service_id" => ["sometimes", "exists:services,id"],
-            "start_date" => ["nullable", "date"],
-            "end_date" => ["nullable", "date"],
-            "status" => [
-                "sometimes",
-                "in:active,inactive,trial,isolir,dismantle"
-            ],
-        ]);
-
-        $subscription->update($data);
-
-        return response()->json([
-            "success" => true,
-            "message" => "Subscription updated successfully",
-            "data" => $subscription,
-        ]);
-    }
-
-    public function destroy(int $subscription): JsonResponse
-    {
-        $subscription = Subscription::query()->find($subscription);
-
-        if (!$subscription) {
-            return response()->json([
-                "success" => false,
-                "message" => "Subscription not found",
-                "errors" => [],
-            ], 404);
-        }
-
-        $subscription->delete();
-
-        return response()->json([
-            "success" => true,
-            "message" => "Subscription deleted successfully",
-            "data" => null,
-        ]);
-    }
 }
+
+    

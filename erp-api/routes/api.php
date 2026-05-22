@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\CustomerController;
+use App\Http\Controllers\Api\SubscriptionController;
 
 Route::apiResource("services", ServiceController::class);
 
@@ -27,3 +28,10 @@ Route::patch("customers/{customer}/deactivate", [
     CustomerController::class,
     "deactivate",
 ]);
+
+Route::apiResource("subscriptions", SubscriptionController::class)
+    ->only([
+        "index",
+        "store",
+        "show",
+    ]);
